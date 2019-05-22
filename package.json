@@ -1,5 +1,5 @@
 {
-  "name": "loopback-component-storage",
+  "name": "@sansitech/loopback-component-storage",
   "description": "Loopback Storage Service",
   "engines": {
     "node": ">=6"
@@ -34,5 +34,5 @@
     "url": "https://github.com/hanyuzhou2006/loopback-component-storage.git"
   },
   "license": "Artistic-2.0",
-  "author": "IBM Corp."
+  "author": "hanyuzhou2006"
 }
