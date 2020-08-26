@@ -1,4 +1,4 @@
-// Copyright IBM Corp. 2013,2018. All Rights Reserved.
+// Copyright IBM Corp. 2013,2019. All Rights Reserved.
 // Node module: loopback-component-storage
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
@@ -29,6 +29,21 @@ describe('FileSystem based storage provider', function() {
         root: path.join(__dirname, 'storage'),
       });
       process.nextTick(done);
+    });
+
+    it('should work even it is ran from other path', function(done) {
+      process.chdir('../../../');
+
+      try {
+        console.log(`running from ${process.cwd()}`);
+        client = new FileSystemProvider({
+          root: path.join(__dirname, 'storage'),
+        });
+
+        process.nextTick(done);
+      } catch (error) {
+        process.nextTick(done(error));
+      }
     });
 
     it('should complain if the root directory doesn\'t exist', function(done) {
