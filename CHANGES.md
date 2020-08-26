@@ -1,3 +1,39 @@
+2020-03-06, Version 3.7.0
+=========================
+
+ * Update LTS status in README (Miroslav Bajtoš)
+
+ * chore: update copyright year (Diana Lau)
+
+ * Update README.md (Shaun)
+
+ * chore: improve issue and PR templates (Nora)
+
+ * chore: drop Node.js 6 and add Node.js 12 to travis (Nora)
+
+
+2019-07-25, Version 3.6.3
+=========================
+
+ * Rannig from other paths. Property files to array. (Diego A. Zapata Häntsch)
+
+
+2019-07-12, Version 3.6.2
+=========================
+
+ * chore: update CODEOWNERS (Diana Lau)
+
+ * Upgrade pkgcloud version (Diego A. Zapata Häntsch)
+
+
+2019-05-23, Version 3.6.1
+=========================
+
+ * update pkgcloud and use version 2.x (Anis)
+
+ * chore: update copyrights years (Agnes Lin)
+
+
 2019-03-28, Version 3.6.0
 =========================
 
