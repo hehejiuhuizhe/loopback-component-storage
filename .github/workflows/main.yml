@@ -27,7 +27,11 @@ jobs:
         run: npm install
       - name: Depcheck
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck    
+        id: Depcheck
+        with:
+          project: 'loopback-component-storage'
+          path: '.'
+          format: 'HTML'
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
