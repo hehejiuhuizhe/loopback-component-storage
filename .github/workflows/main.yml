@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
       - name: Build project with npm
-        run: npm install
+        run:  npm install --package-lock
       - name: Depcheck
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
