@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "STRONGLOOP_GLOBALIZE_APP_LANGUAGE=en mocha --timeout 3000",
+    "test": "STRONGLOOP_GLOBALIZE_APP_LANGUAGE=en mocha --timeout 3000 --exit",
     "posttest": "npm run lint"
   },
   "dependencies": {
