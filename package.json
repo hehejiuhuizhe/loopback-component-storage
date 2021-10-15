@@ -23,7 +23,7 @@
     "eslint": "^5.4.0",
     "eslint-config-loopback": "^11.0.0",
     "express": "^4.16.3",
-    "loopback": "^3.22.1",
+    "@sansitech/loopback": "3.28.1",
     "mkdirp": "^1.0.4",
     "mocha": "^8.3.2",
     "supertest": "^3.1.0",

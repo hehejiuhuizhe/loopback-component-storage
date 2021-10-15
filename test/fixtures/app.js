@@ -5,7 +5,7 @@
 
 'use strict';
 
-var loopback = require('loopback');
+var loopback = require('@sansitech/loopback');
 var app = module.exports = loopback();
 
 var path = require('path');

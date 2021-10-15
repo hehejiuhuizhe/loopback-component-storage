@@ -6,7 +6,7 @@
 'use strict';
 
 var request = require('supertest');
-var loopback = require('loopback');
+var loopback = require('@sansitech/loopback');
 var assert = require('assert');
 var semver = require('semver');
 
