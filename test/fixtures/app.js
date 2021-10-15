@@ -5,10 +5,10 @@
 
 'use strict';
 
-var loopback = require('@sansitech/loopback');
-var app = module.exports = loopback();
+const loopback = require('@sansitech/loopback');
+const app = module.exports = loopback();
 
-var path = require('path');
+const path = require('path');
 
 // expose a rest api
 app.use('/api', loopback.rest());
@@ -17,13 +17,13 @@ app.use(loopback.static(path.join(__dirname, 'public')));
 
 app.set('port', process.env.PORT || 3000);
 
-var ds = loopback.createDataSource({
+const ds = loopback.createDataSource({
   connector: require('../index'),
   provider: 'filesystem',
   root: path.join(__dirname, 'storage'),
 });
 
-var container = ds.createModel('container');
+const container = ds.createModel('container');
 
 app.model(container);
 

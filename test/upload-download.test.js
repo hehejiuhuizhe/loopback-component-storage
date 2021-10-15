@@ -5,19 +5,19 @@
 
 'use strict';
 
-var request = require('supertest');
-var loopback = require('@sansitech/loopback');
-var assert = require('assert');
-var semver = require('semver');
+const request = require('supertest');
+const loopback = require('@sansitech/loopback');
+const assert = require('assert');
+const semver = require('semver');
 
-var app = loopback();
-var path = require('path');
+const app = loopback();
+const path = require('path');
 
 // configure errorHandler to show full error message
 app.set('remoting', {errorHandler: {debug: true, log: false}});
 // custom route with renamer
 app.post('/custom/upload', function(req, res, next) {
-  var options = {
+  const options = {
     container: 'album1',
     getFilename: function(file, req, res) {
       return file.field + '_' + file.name;
@@ -35,7 +35,7 @@ app.post('/custom/upload', function(req, res, next) {
 
 // custom route with renamer
 app.post('/custom/uploadWithContainer', function(req, res, next) {
-  var options = {
+  const options = {
     getFilename: function(file, req, res) {
       return file.field + '_' + file.name;
     },
@@ -53,7 +53,7 @@ app.post('/custom/uploadWithContainer', function(req, res, next) {
 // expose a rest api
 app.use(loopback.rest());
 
-var dsImage = loopback.createDataSource({
+const dsImage = loopback.createDataSource({
   connector: require('../lib/storage-connector'),
   provider: 'filesystem',
   root: path.join(__dirname, 'images'),
@@ -66,16 +66,16 @@ var dsImage = loopback.createDataSource({
   maxFileSize: 5 * 1024 * 1024,
 });
 
-var ImageContainer = dsImage.createModel('imageContainer');
+const ImageContainer = dsImage.createModel('imageContainer');
 app.model(ImageContainer);
 
-var ds = loopback.createDataSource({
+const ds = loopback.createDataSource({
   connector: require('../lib/storage-connector'),
   provider: 'filesystem',
   root: path.join(__dirname, 'images'),
 });
 
-var Container = ds.createModel('container', {}, {base: 'Model'});
+const Container = ds.createModel('container', {}, {base: 'Model'});
 app.model(Container);
 
 /*!
@@ -107,7 +107,7 @@ function verifyMetadata(containerOrFile, name) {
 }
 
 describe('storage service', function() {
-  var server = null;
+  let server = null;
   before(function(done) {
     server = app.listen(0, function() {
       done();
@@ -324,13 +324,13 @@ describe('storage service', function() {
         .set('Connection', 'keep-alive')
         .expect('Content-Type', /json/)
         .expect(400, function(err, res) {
-          var indexOfMsg = res.body.error.message
+          const indexOfMsg = res.body.error.message
             .toLowerCase()
             .indexOf('no file');
           assert.notEqual(
             indexOfMsg,
             -1,
-            'Error message does not contain "no file"'
+            'Error message does not contain "no file"',
           );
           done(err);
         });
@@ -343,7 +343,7 @@ describe('storage service', function() {
         .expect(500, function(err, res) {
           assert.equal(
             res.body.error.message,
-            'bad content-type header, no content-type'
+            'bad content-type header, no content-type',
           );
           done(err);
         });
@@ -383,9 +383,9 @@ describe('storage service', function() {
   });
 
   it('should run a function before a download is started by a client', function(done) {
-    var hookCalled = false;
+    let hookCalled = false;
 
-    var Container = app.models.Container;
+    const Container = app.models.Container;
 
     Container.beforeRemote('download', function(ctx, unused, cb) {
       hookCalled = true;
@@ -403,9 +403,9 @@ describe('storage service', function() {
   });
 
   it('should run a function after a download is started by a client', function(done) {
-    var hookCalled = false;
+    let hookCalled = false;
 
-    var Container = app.models.Container;
+    const Container = app.models.Container;
 
     Container.afterRemote('download', function(ctx, unused, cb) {
       hookCalled = true;
@@ -423,8 +423,8 @@ describe('storage service', function() {
   });
 
   it('should run a function after a download failed', function(done) {
-    var hookCalled = false;
-    var Container = app.models.Container;
+    let hookCalled = false;
+    const Container = app.models.Container;
 
     Container.afterRemoteError('download', function(ctx, cb) {
       hookCalled = true;
@@ -491,7 +491,7 @@ describe('storage service', function() {
           });
           done();
         });
-    }
+    },
   );
 
   it('should upload a file with container param', function(done) {
