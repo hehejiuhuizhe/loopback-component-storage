@@ -5,10 +5,10 @@
 
 'use strict';
 
-var SG = require('strong-globalize');
+const SG = require('strong-globalize');
 SG.SetRootDir(__dirname);
 
-var StorageConnector = require('./lib/storage-connector');
+const StorageConnector = require('./lib/storage-connector');
 StorageConnector.StorageService = require('./lib/storage-service');
 
 module.exports = StorageConnector;

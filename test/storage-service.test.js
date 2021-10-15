@@ -5,12 +5,12 @@
 
 'use strict';
 
-var StorageService = require('../lib/storage-service.js');
+const StorageService = require('../lib/storage-service.js');
 
-var assert = require('assert');
-var path = require('path');
+const assert = require('assert');
+const path = require('path');
 
-var storageService = new StorageService({
+const storageService = new StorageService({
   root: path.join(__dirname, 'storage'),
   provider: 'filesystem',
 });
@@ -107,7 +107,7 @@ describe('Storage service', function() {
   });
 
   describe('file apis', function() {
-    var fs = require('fs');
+    const fs = require('fs');
 
     it('should create a new container', function(done) {
       storageService.createContainer({name: 'c1'}, function(err, container) {
@@ -117,21 +117,21 @@ describe('Storage service', function() {
     });
 
     it('should upload a file', function(done) {
-      var writer = storageService.uploadStream('c1', 'f1.txt');
+      const writer = storageService.uploadStream('c1', 'f1.txt');
       fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
       writer.on('finish', done);
       writer.on('error', done);
     });
 
     it('should emit success event', function(done) {
-      var writer = storageService.uploadStream('c1', 'f1.txt');
+      const writer = storageService.uploadStream('c1', 'f1.txt');
       fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
       writer.on('success', done);
       writer.on('error', done);
     });
 
     it('should download a file', function(done) {
-      var reader = storageService.downloadStream('c1', 'f1.txt');
+      const reader = storageService.downloadStream('c1', 'f1.txt');
       reader.pipe(fs.createWriteStream(path.join(__dirname, 'files/f1_downloaded.txt')));
       reader.on('end', done);
       reader.on('error', done);
@@ -230,7 +230,7 @@ describe('Storage service', function() {
 
     function createFile(container, file) {
       return new Promise(function(resolve, reject) {
-        var writer = storageService.uploadStream(container, file);
+        const writer = storageService.uploadStream(container, file);
         fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
         writer.on('finish', resolve);
         writer.on('error', reject);

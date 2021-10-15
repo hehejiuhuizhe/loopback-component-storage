@@ -5,10 +5,10 @@
 
 'use strict';
 
-var FileSystemProvider = require('../lib/providers/filesystem/index.js').Client;
+const FileSystemProvider = require('../lib/providers/filesystem/index.js').Client;
 
-var assert = require('assert');
-var path = require('path');
+const assert = require('assert');
+const path = require('path');
 
 function verifyMetadata(fileOrContainer, name) {
   assert(fileOrContainer.getMetadata());
@@ -23,7 +23,7 @@ function verifyMetadata(fileOrContainer, name) {
 
 describe('FileSystem based storage provider', function() {
   describe('container apis', function() {
-    var client = null;
+    let client = null;
     it('should require an existing directory as the root', function(done) {
       client = new FileSystemProvider({
         root: path.join(__dirname, 'storage'),
@@ -148,8 +148,8 @@ describe('FileSystem based storage provider', function() {
   });
 
   describe('file apis', function() {
-    var fs = require('fs');
-    var client = new FileSystemProvider({
+    const fs = require('fs');
+    const client = new FileSystemProvider({
       root: path.join(__dirname, 'storage'),
     });
 
@@ -161,7 +161,7 @@ describe('FileSystem based storage provider', function() {
     });
 
     it('should upload a file', function(done) {
-      var writer = client.upload({container: 'c1', remote: 'f1.txt'});
+      const writer = client.upload({container: 'c1', remote: 'f1.txt'});
       fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
       writer.on('finish', done);
       writer.on('error', done);
@@ -169,10 +169,10 @@ describe('FileSystem based storage provider', function() {
 
     /* eslint-disable mocha/handle-done-callback */
     it('should fail to upload a file with invalid characters', function(done) {
-      var writer = client.upload({container: 'c1', remote: 'a/f1.txt'});
+      const writer = client.upload({container: 'c1', remote: 'a/f1.txt'});
       fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
-      var cb = done;
-      var clearCb = function() {};
+      let cb = done;
+      const clearCb = function() {};
       writer.on('error', function() {
         cb();
         cb = clearCb;
@@ -185,12 +185,12 @@ describe('FileSystem based storage provider', function() {
     /* eslint-enable mocha/handle-done-callback */
 
     it('should download a file', function(done) {
-      var reader = client.download({
+      const reader = client.download({
         container: 'c1',
         remote: 'f1.txt',
       });
       reader.pipe(
-        fs.createWriteStream(path.join(__dirname, 'files/f1_downloaded.txt'))
+        fs.createWriteStream(path.join(__dirname, 'files/f1_downloaded.txt')),
       );
       reader.on('end', done);
       reader.on('error', done);
@@ -198,12 +198,12 @@ describe('FileSystem based storage provider', function() {
 
     /* eslint-disable mocha/handle-done-callback */
     it('should fail to download a file with invalid characters', function(done) {
-      var reader = client.download({container: 'c1', remote: 'a/f1.txt'});
+      const reader = client.download({container: 'c1', remote: 'a/f1.txt'});
       reader.pipe(
-        fs.createWriteStream(path.join(__dirname, 'files/a-f1_downloaded.txt'))
+        fs.createWriteStream(path.join(__dirname, 'files/a-f1_downloaded.txt')),
       );
-      var cb = done;
-      var clearCb = function() {};
+      let cb = done;
+      const clearCb = function() {};
       reader.on('error', function() {
         cb();
         cb = clearCb;
@@ -314,7 +314,7 @@ describe('FileSystem based storage provider', function() {
 
     function createFile(container, file) {
       return new Promise(function(resolve, reject) {
-        var writer = client.upload({container: container, remote: file});
+        const writer = client.upload({container: container, remote: file});
         fs.createReadStream(path.join(__dirname, 'files/f1.txt')).pipe(writer);
         writer.on('finish', resolve);
         writer.on('error', reject);
