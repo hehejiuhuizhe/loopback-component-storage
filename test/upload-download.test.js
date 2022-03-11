@@ -72,6 +72,7 @@ app.model(ImageContainer);
 const ds = loopback.createDataSource({
   connector: require('../lib/storage-connector'),
   provider: 'filesystem',
+  forbidExtnames: ['.hehe'],
   root: path.join(__dirname, 'images'),
 });
 
@@ -293,6 +294,19 @@ describe('storage service', function() {
     request('http://localhost:' + app.get('port'))
       .post('/imageContainers/album1/upload')
       .attach('image', path.join(__dirname, './fixtures/app.js'))
+      .set('Accept', 'application/json')
+      .set('Connection', 'keep-alive')
+      .expect('Content-Type', /json/)
+      .expect(500, function(err, res) {
+        assert(res.body.error.message.indexOf('is not allowed') !== -1);
+        done(err);
+      });
+  });
+
+  it('uploads file forbid extname', function(done) {
+    request('http://localhost:' + app.get('port'))
+      .post('/containers/album1/upload')
+      .attach('image', path.join(__dirname, './fixtures/test.hehe'))
       .set('Accept', 'application/json')
       .set('Connection', 'keep-alive')
       .expect('Content-Type', /json/)
