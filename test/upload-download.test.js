@@ -316,6 +316,19 @@ describe('storage service', function() {
       });
   });
 
+  it('uploads file forbid extname upperCase', function(done) {
+    request('http://localhost:' + app.get('port'))
+      .post('/containers/album1/upload')
+      .attach('image', path.join(__dirname, './fixtures/testUpper.HEHE'))
+      .set('Accept', 'application/json')
+      .set('Connection', 'keep-alive')
+      .expect('Content-Type', /json/)
+      .expect(500, function(err, res) {
+        assert(res.body.error.message.indexOf('is not allowed') !== -1);
+        done(err);
+      });
+  });
+
   it('uploads file too large', function(done) {
     request('http://localhost:' + app.get('port'))
       .post('/imageContainers/album1/upload')
